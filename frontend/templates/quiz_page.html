@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Study Buddy AI - Quiz Interface</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "surface-tint": "#544fc0",
+                        "primary-fixed": "#e2dfff",
+                        "primary": "#1f108e",
+                        "surface-container-low": "#f3f4f5",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#46464f",
+                        "surface": "#f8f9fa",
+                        "on-secondary-fixed": "#23005c",
+                        "secondary-container": "#8455ef",
+                        "surface-container": "#edeeef",
+                        "on-tertiary-container": "#afaeba",
+                        "secondary": "#6b38d4",
+                        "tertiary-fixed-dim": "#c7c5d1",
+                        "on-surface": "#191c1d",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e7e8e9",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#5516be",
+                        "on-secondary-container": "#fffbff",
+                        "surface-variant": "#e1e3e4",
+                        "on-primary-fixed": "#0f0069",
+                        "tertiary": "#2b2c35",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#1a1b23",
+                        "on-background": "#191c1d",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#c3c0ff",
+                        "outline-variant": "#c8c4d5",
+                        "surface-bright": "#f8f9fa",
+                        "secondary-fixed": "#e9ddff",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-primary-fixed-variant": "#3b35a7",
+                        "outline": "#777584",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-primary-container": "#a9a7ff",
+                        "tertiary-container": "#42424b",
+                        "tertiary-fixed": "#e3e1ed",
+                        "background": "#f8f9fa",
+                        "surface-dim": "#d9dadb",
+                        "inverse-surface": "#2e3132",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-surface-variant": "#464553",
+                        "primary-container": "#3730a3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "stack-lg": "32px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "16px",
+                        "unit": "8px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "container-max-width": "1200px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .progress-gradient {
+            background: linear-gradient(90deg, #1f108e 0%, #6b38d4 100%);
+        }
+        .soft-shadow {
+            box-shadow: 0 4px 20px 0 rgba(84, 79, 192, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-md">
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 z-50 w-full h-16 flex justify-between items-center px-gutter py-4 bg-surface shadow-[0_4px_20px_0_rgba(84,79,192,0.15)] md:pl-72">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md font-bold text-primary">Study Buddy AI</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary-container/10 border border-secondary/20">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">timer</span>
+<span class="font-label-md text-label-md text-secondary" id="timer">14:52</span>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high flex items-center justify-center hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface-variant">account_circle</span>
+</div>
+</div>
+</header>
+<!-- SideNavBar Shell -->
+<aside class="h-screen w-64 fixed left-0 top-0 hidden md:flex flex-col bg-surface-container-lowest border-r border-outline-variant shadow-[0_4px_20px_0_rgba(84,79,192,0.05)] z-50">
+<div class="p-gutter flex flex-col gap-stack-md flex-grow">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary">school</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md font-bold text-primary leading-tight">Study Buddy AI</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">AI-Powered Tutor</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-200" href="/dashboard">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<!-- ACTIVE TAB: My Quizzes -->
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg font-bold border-2 border-secondary transition-all duration-200 active:scale-[0.98]" href="/quiz">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">quiz</span>
+<span class="font-label-md text-label-md">My Quizzes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-200" href="/performance">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-200" href="/dashboard">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<button class="mt-6 py-4 px-4 bg-primary text-on-primary rounded-xl font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-primary-container transition-colors active:scale-95" onclick="window.location.href='/dashboard'" type="button">
+<span class="material-symbols-outlined">add_circle</span>
+                Start New Study Session
+            </button>
+</div>
+<div class="p-gutter border-t border-outline-variant flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-200" href="/dashboard">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md text-label-md">Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-200" href="/dashboard">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-12 md:pl-64 flex flex-col items-center">
+<div class="max-w-[800px] w-full px-margin-mobile md:px-margin-desktop flex flex-col gap-stack-lg">
+<!-- Progress Header -->
+<div class="flex flex-col gap-4">
+<div class="flex justify-between items-end">
+<div>
+<h1 id="quizTitle" class="font-headline-lg text-headline-lg text-primary">Quiz</h1>
+<p id="quizSubtitle" class="font-body-md text-on-surface-variant"></p>
+</div>
+<span id="questionProgressText" class="font-label-md text-label-md text-primary font-bold"></span>
+</div>
+<div class="h-3 w-full bg-surface-container rounded-full overflow-hidden">
+<div id="questionProgressBar" class="h-full progress-gradient rounded-full transition-all duration-700" style="width: 0%;"></div>
+</div>
+</div>
+<!-- Question Card -->
+<div class="bg-surface-container-lowest rounded-[24px] p-gutter soft-shadow border border-outline-variant/30">
+<div class="flex items-start gap-4 mb-8">
+<div id="questionNumber" class="min-w-[40px] h-10 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold"></div>
+<p id="questionText" class="font-headline-md text-headline-md text-on-surface mt-0.5"></p>
+</div>
+<!-- Multiple Choice Options -->
+<div id="answerContainer" class="grid grid-cols-1 gap-4"></div>
+</div>
+<!-- Footer Navigation -->
+<div id="quizNavigation" class="flex justify-between items-center gap-4 mt-4">
+<button id="previousButton" class="flex items-center gap-2 px-6 py-3 rounded-xl font-label-md text-label-md text-on-secondary-fixed-variant bg-secondary-fixed hover:bg-secondary-fixed-dim transition-colors active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+<span class="material-symbols-outlined">arrow_back</span>
+                    Previous
+</button>
+<div class="flex gap-4">
+<button id="nextButton" class="flex items-center gap-2 px-8 py-3 rounded-xl font-label-md text-label-md bg-primary text-on-primary hover:bg-primary-container transition-all active:scale-95 soft-shadow disabled:opacity-50 disabled:cursor-not-allowed">
+                        Next
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button id="submitQuizButton" class="flex items-center gap-2 px-8 py-3 rounded-xl font-label-md text-label-md bg-secondary text-on-secondary hover:bg-secondary-container transition-all active:scale-95 soft-shadow hidden md:flex">
+                        Submit Quiz
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">task_alt</span>
+</button>
+</div>
+</div>
+<!-- Mobile Submit Button (Floating Contextual) -->
+<button id="submitQuizMobileButton" class="md:hidden fixed bottom-8 right-gutter flex items-center gap-2 px-6 py-4 rounded-full bg-secondary text-on-secondary shadow-xl active:scale-95 transition-transform z-40">
+<span class="font-label-md text-label-md">Submit Quiz</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">done_all</span>
+</button>
+<!-- Learning Aid Section (Asymmetric / Bento) -->
+<div id="learningAidSection" class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-stack-lg">
+<div class="md:col-span-2 bg-primary-container text-on-primary-container p-6 rounded-[24px] relative overflow-hidden group">
+<div class="relative z-10">
+<h3 class="font-headline-md text-headline-md mb-2">AI Tutor Tip</h3>
+<p id="quizTutorTip" class="font-body-md opacity-90"></p>
+</div>
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl opacity-10 group-hover:scale-110 transition-transform duration-500">lightbulb</span>
+</div>
+<div class="bg-surface-container-high p-6 rounded-[24px] flex flex-col justify-center items-center text-center">
+<span class="material-symbols-outlined text-secondary text-4xl mb-2">auto_awesome</span>
+<h4 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">TOTAL</h4>
+<p id="quizTotalQuestions" class="font-display-lg text-display-lg text-primary">0</p>
+<p class="font-body-sm text-on-surface-variant">Questions in this quiz</p>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interaction for Timer
+        let seconds = 892; // 14:52
+        const timerElement = document.getElementById('timer');
+        
+        setInterval(() => {
+            seconds--;
+            if (seconds < 0) seconds = 0;
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            timerElement.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+            
+            if (seconds < 60) {
+                timerElement.parentElement.classList.add('bg-error-container');
+                timerElement.classList.add('text-error');
+            }
+        }, 1000);
+
+        // Feedback Toast Logic
+        function showFeedback() {
+            const toast = document.createElement('div');
+            toast.className = 'fixed top-4 left-1/2 -translate-x-1/2 z-[100] px-6 py-3 bg-secondary text-on-secondary rounded-full shadow-2xl flex items-center gap-3 animate-bounce';
+            toast.innerHTML = `
+                <span class="material-symbols-outlined">celebration</span>
+                <span class="font-label-md">Answer saved successfully!</span>
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // Selection Visual Feedback
+        const options = document.querySelectorAll('input[name="quiz-option"]');
+        options.forEach(option => {
+            option.addEventListener('change', () => {
+                showFeedback();
+            });
+        });
+    </script>
+<!-- quiz_page.html -->
+<script src="{{ url_for('js', path='api.js') }}" defer></script>
+<script src="{{ url_for('js', path='quiz.js') }}" defer></script>
+</body></html>

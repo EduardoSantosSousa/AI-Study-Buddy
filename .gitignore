@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Virtual environment
+venv/
+.venv/
+
+# Secrets
+.env
+
+# Logs
+logs/
+*.log
+uvicorn.out.log
+uvicorn.err.log
+
+# Local results/database
+results/
+
+# IDE
+.vscode/
+
+# Other files:
+context_text.md
+FRONTEND_TEMPLATE_INTEGRATION_GUIDE.md
+FULL_DOCUMENTATION.md
+GUIA_IMPLEMENTACAO_PASSO_A_PASSO.md
+HTML_CSS_FRONTEND_INTEGRATION_GUIDE.md

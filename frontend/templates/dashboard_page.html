@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "surface-tint": "#544fc0",
+                    "primary-fixed": "#e2dfff",
+                    "primary": "#1f108e",
+                    "surface-container-low": "#f3f4f5",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#d0bcff",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed-variant": "#46464f",
+                    "surface": "#f8f9fa",
+                    "on-secondary-fixed": "#23005c",
+                    "secondary-container": "#8455ef",
+                    "surface-container": "#edeeef",
+                    "on-tertiary-container": "#afaeba",
+                    "secondary": "#6b38d4",
+                    "tertiary-fixed-dim": "#c7c5d1",
+                    "on-surface": "#191c1d",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#e7e8e9",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed-variant": "#5516be",
+                    "on-secondary-container": "#fffbff",
+                    "surface-variant": "#e1e3e4",
+                    "on-primary-fixed": "#0f0069",
+                    "tertiary": "#2b2c35",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed": "#1a1b23",
+                    "on-background": "#191c1d",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#c3c0ff",
+                    "outline-variant": "#c8c4d5",
+                    "surface-bright": "#f8f9fa",
+                    "secondary-fixed": "#e9ddff",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-primary-fixed-variant": "#3b35a7",
+                    "outline": "#777584",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-primary-container": "#a9a7ff",
+                    "tertiary-container": "#42424b",
+                    "tertiary-fixed": "#e3e1ed",
+                    "background": "#f8f9fa",
+                    "surface-dim": "#d9dadb",
+                    "inverse-surface": "#2e3132",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-surface-variant": "#464553",
+                    "primary-container": "#3730a3"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "stack-lg": "32px",
+                    "margin-desktop": "40px",
+                    "margin-mobile": "16px",
+                    "unit": "8px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "container-max-width": "1200px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .canvas-bg {
+            background-color: #f8f9fa;
+        }
+        .soft-shadow {
+            box-shadow: 0 4px 20px 0 rgba(84, 79, 192, 0.15);
+        }
+        .progress-gradient {
+            background: linear-gradient(90deg, #1f108e 0%, #6b38d4 100%);
+        }
+    </style>
+</head>
+<body class="canvas-bg font-body-md text-on-surface">
+<!-- TopAppBar (Mobile Only/Global Anchor) -->
+<header class="fixed top-0 z-50 w-full h-16 flex justify-between items-center px-gutter py-4 bg-surface dark:bg-surface-dim shadow-[0_4px_20px_0_rgba(84,79,192,0.15)] md:hidden">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">Study Buddy AI</span>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary">account_circle</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar (Desktop Anchor) -->
+<aside class="h-screen w-64 fixed left-0 top-0 hidden md:flex flex-col bg-surface-container-lowest border-r border-outline-variant dark:border-outline shadow-[0_4px_20px_0_rgba(84,79,192,0.05)] p-gutter gap-stack-md z-40">
+<div class="flex flex-col gap-2 mb-stack-lg">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md font-bold text-primary">Study Buddy AI</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">AI-Powered Tutor</span>
+</div>
+</div>
+</div>
+<nav class="flex flex-col gap-2 flex-grow">
+<!-- Dashboard Active -->
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg font-bold border-2 border-secondary transition-all duration-200" href="/dashboard">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-200 active:scale-[0.98]" href="/quiz">
+<span class="material-symbols-outlined" data-icon="quiz">quiz</span>
+<span class="font-label-md text-label-md">My Quizzes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-200 active:scale-[0.98]" href="/performance">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-200 active:scale-[0.98]" href="/dashboard">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-stack-md border-t border-outline-variant flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-200" href="/dashboard">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-label-md text-label-md">Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-200" href="/dashboard">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-24 md:pt-10 px-margin-mobile md:px-margin-desktop pb-stack-lg min-h-screen">
+<div class="max-w-[1200px] mx-auto space-y-stack-lg">
+<!-- Welcome Hero Bento Card -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-8 relative overflow-hidden bg-primary-container rounded-[24px] p-8 text-on-primary-container flex flex-col justify-between min-h-[240px] soft-shadow">
+<div class="z-10 relative">
+<h1 class="font-headline-lg text-headline-lg md:text-display-lg max-w-md">Prepare to learn something new today!</h1>
+<p class="font-body-lg text-body-lg mt-4 opacity-80 max-w-sm">Study Buddy AI's intelligence will transform any subject into a personalized challenge for you.</p>
+</div>
+<div class="absolute right-0 bottom-0 w-1/3 h-full opacity-20 pointer-events-none">
+<img class="w-full h-full object-cover" data-alt="A sophisticated digital abstract illustration representing neural networks and artificial intelligence. Soft indigo and vibrant violet light beams intersect against a deep navy background, creating a sense of depth and cosmic intelligence. The lighting is ethereal and high-contrast, symbolizing the spark of educational discovery and the modern minimalist brand aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCR-QbAwo6oduJmjuVbd2G7xlI61VSocyGjxiKS23T3QOCmUljuBhIaLZv6biLTLdui02dsilIAWmmSLgQHJZ_tLS2sBiMPoJOmFpqzTkXxEfA7medlauOhd8Sq4NJ5XVIcVd5bskxBoY0-WWsbjn3HvnWxsPRgrDwnqxvMXoIX4Ei3iXf4YzW8_yfkXTJTxaCAZ3PMOwil4V2-vfw1UbDJPLsPkU_njPL4m4ecpNtQObQWHxg8s_MF-VS_06B-nvBoIv0X7FYgNRd1"/>
+</div>
+<div class="mt-6 z-10">
+<button class="px-6 py-3 bg-secondary-container text-on-secondary-container font-label-md text-label-md rounded-full active:scale-95 transition-transform">See Last Quiz</button>
+</div>
+</div>
+<!-- Stats Summary Bento -->
+<div class="md:col-span-4 bg-surface-container-lowest rounded-[24px] p-6 soft-shadow flex flex-col justify-center border border-outline-variant">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-secondary text-4xl">local_fire_department</span>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Completed Quizzes</p>
+<p id="dashboardTotalQuizzes" class="font-headline-md text-headline-md">0</p>
+</div>
+</div>
+<div class="space-y-4">
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div id="dashboardProgressBar" class="h-full progress-gradient" style="width: 0%;"></div>
+</div>
+<p id="dashboardProgressText" class="font-label-sm text-label-sm text-on-surface-variant">Complete your first quiz to start tracking progress.</p>
+</div>
+</div>
+</section>
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Quiz Configuration Form -->
+<div class="lg:col-span-2 bg-surface-container-lowest rounded-[24px] p-gutter soft-shadow border border-outline-variant">
+<div class="flex items-center gap-3 mb-stack-lg">
+<span class="material-symbols-outlined text-primary text-3xl">psychology</span>
+<h2 class="font-headline-md text-headline-md">Configure New Quiz</h2>
+</div>
+<form class="space-y-6">
+<!-- Subject Input -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">What do you want to study today?</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input id="topicInput" class="w-full pl-12 pr-4 py-4 rounded-xl border border-outline-variant focus:border-secondary focus:ring-2 focus:ring-secondary/20 outline-none transition-all font-body-md text-body-md placeholder:text-outline-variant" placeholder="e.g., Python, World History, Quantum Physics" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Question Type Select -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Question Type</label>
+<select id="questionTypeSelect" class="w-full px-4 py-4 rounded-xl border border-outline-variant focus:border-secondary focus:ring-2 focus:ring-secondary/20 outline-none transition-all font-body-md text-body-md bg-white appearance-none">
+<option>Multiple Choice</option>
+<option>Fill in the Blank</option>
+</select>
+</div>
+<!-- Difficulty Segmented Control -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Difficulty</label>
+<div class="flex p-1 bg-surface-container-low rounded-xl border border-outline-variant">
+<button class="difficulty-option flex-1 py-2 px-3 rounded-lg font-label-md text-label-md text-on-surface-variant transition-all" data-difficulty="Easy" type="button">Easy</button>
+<button class="difficulty-option flex-1 py-2 px-3 rounded-lg font-label-md text-label-md bg-white shadow-sm text-secondary transition-all" data-difficulty="Medium" type="button">Medium</button>
+<button class="difficulty-option flex-1 py-2 px-3 rounded-lg font-label-md text-label-md text-on-surface-variant transition-all" data-difficulty="Hard" type="button">Hard</button>
+</div>
+</div>
+</div>
+<!-- Quantity Slider -->
+<div class="py-4">
+<div class="flex justify-between items-center mb-4">
+<label class="font-label-md text-label-md text-on-surface-variant">Number of Questions</label>
+<span class="font-headline-md text-headline-md text-primary" id="questionCountDisplay">5</span>
+</div>
+<input id="questionRange" class="w-full h-2 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-secondary" id="questionRange" max="10" min="1" type="range" value="5"/>
+<div class="flex justify-between mt-2 px-1">
+<span class="font-label-sm text-label-sm text-outline">1</span>
+<span class="font-label-sm text-label-sm text-outline">10</span>
+</div>
+</div>
+<button id="generateQuizButton" class="w-full py-4 bg-primary text-on-primary rounded-xl font-headline-md text-headline-md hover:shadow-lg active:scale-[0.99] transition-all flex items-center justify-center gap-3 disabled:opacity-60 disabled:cursor-not-allowed" type="button">
+<span class="material-symbols-outlined">auto_awesome</span>
+                            Generate Quiz
+                        </button>
+<p id="dashboardMessage" class="font-body-sm text-body-sm text-error min-h-5"></p>
+</form>
+</div>
+<!-- Recent Activity -->
+<div class="flex flex-col gap-6">
+<div class="bg-surface-container-lowest rounded-[24px] p-6 soft-shadow border border-outline-variant flex-grow">
+<div class="flex justify-between items-center mb-stack-md">
+<h2 class="font-label-md text-label-md text-on-surface-variant">Recent Activities</h2>
+<a class="font-label-sm text-label-sm text-secondary hover:underline" href="/performance">See all</a>
+</div>
+<div id="recentActivityContainer" class="space-y-4"></div>
+</div>
+<!-- Promo/Tip Card -->
+<div class="bg-gradient-to-br from-secondary to-primary rounded-[24px] p-6 text-white soft-shadow overflow-hidden relative">
+<div class="z-10 relative">
+<span class="material-symbols-outlined mb-2">lightbulb</span>
+<h3 class="font-headline-md text-headline-md mb-2">AI Tutor Tip</h3>
+<p class="font-body-sm text-body-sm opacity-90">Generate a quiz from any topic and review your performance after submitting.</p>
+</div>
+<div class="absolute -right-8 -bottom-8 w-32 h-32 bg-white/10 rounded-full blur-3xl"></div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full h-16 bg-surface-container-lowest flex md:hidden items-center justify-around z-50 border-t border-outline-variant/10 shadow-[0_-4px_16px_rgba(0,0,0,0.04)]">
+<a class="flex flex-col items-center gap-1 text-primary" href="/dashboard">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-[10px] font-bold">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="/quiz">
+<span class="material-symbols-outlined">quiz</span>
+<span class="text-[10px]">Quizzes</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="/performance">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-[10px]">Stats</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="/dashboard">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px]">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for the range slider
+        const range = document.getElementById('questionRange');
+        const display = document.getElementById('questionCountDisplay');
+
+        if (range && display) {
+            range.addEventListener('input', (e) => {
+                display.innerText = e.target.value;
+            });
+        }
+
+        // Logic for segmented difficulty control
+        const difficultyButtons = document.querySelectorAll('button[type="button"].flex-1');
+        difficultyButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                difficultyButtons.forEach(b => {
+                    b.classList.remove('bg-white', 'shadow-sm', 'text-secondary');
+                    b.classList.add('text-on-surface-variant', 'hover:bg-surface-container-high');
+                });
+                btn.classList.add('bg-white', 'shadow-sm', 'text-secondary');
+                btn.classList.remove('text-on-surface-variant', 'hover:bg-surface-container-high');
+            });
+        });
+    </script>
+
+<!-- dashboard_page.html -->
+<script src="{{ url_for('js', path='api.js') }}" defer></script>
+<script src="{{ url_for('js', path='dashboard.js') }}" defer></script>
+</body></html>
+
