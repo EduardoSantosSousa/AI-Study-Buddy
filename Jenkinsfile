@@ -2,11 +2,11 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_REPO = 'SEU_DOCKERHUB_USUARIO/ai-study-buddy'
+        DOCKERHUB_REPO = 'eduardosousa1493/ai-study-buddy'
         IMAGE_TAG = "v${BUILD_NUMBER}"
-        GIT_REPO_URL = 'https://github.com/SEU_USUARIO/AI-Study-Buddy.git'
+        GIT_REPO_URL = 'https://github.com/EduardoSantosSousa/AI-Study-Buddy.git'
         GIT_BRANCH = 'main'
-        ARGOCD_SERVER = 'IP_PUBLICO_DA_VM:PORTA_ARGOCD'
+        ARGOCD_SERVER = '35.255.23.152:31704'
         ARGOCD_APP = 'ai-study-buddy'
     }
 
@@ -86,11 +86,13 @@ pipeline {
                     passwordVariable: 'GITHUB_TOKEN'
                 )]) {
                     sh '''
-                        git config user.email "SEU_EMAIL_DO_GITHUB"
-                        git config user.name "SEU_USUARIO_GITHUB"
+                        git config user.email "eduardosousa.eds@gmail.com"
+                        git config user.name "EduardoSantosSousa"
+
                         git add manifests/deployment.yaml
                         git commit -m "Update image tag to ${IMAGE_TAG}" || echo "No manifest changes to commit"
-                        git push https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/SEU_USUARIO/AI-Study-Buddy.git HEAD:${GIT_BRANCH}
+
+                        git push https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/EduardoSantosSousa/AI-Study-Buddy.git HEAD:${GIT_BRANCH}
                     '''
                 }
             }
@@ -119,8 +121,14 @@ pipeline {
                 withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_FILE')]) {
                     sh '''
                         export KUBECONFIG=$KUBECONFIG_FILE
+
                         ARGOCD_PASSWORD=$(kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
-                        argocd login ${ARGOCD_SERVER} --username admin --password "$ARGOCD_PASSWORD" --insecure
+
+                        argocd login ${ARGOCD_SERVER} \
+                            --username admin \
+                            --password "$ARGOCD_PASSWORD" \
+                            --insecure
+
                         argocd app sync ${ARGOCD_APP}
                     '''
                 }
