@@ -41,7 +41,8 @@ pipeline {
             steps {
                 sh '''
                     . .venv/bin/activate
-                    pytest
+                    export PYTHONPATH="$WORKSPACE:$PYTHONPATH"
+                    python -m pytest
                 '''
             }
         }
