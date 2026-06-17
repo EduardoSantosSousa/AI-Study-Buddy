@@ -1,8 +1,27 @@
 from fastapi.testclient import TestClient
 
-from backend.app import app
+import backend.app as app_module
 
-client = TestClient(app)
+client = TestClient(app_module.app)
+
+
+def fake_generate_quiz_questions(topic, question_type, difficulty, num_questions):
+    questions = [
+        {
+            "id": index + 1,
+            "type": "MCQ",
+            "question": f"Question {index + 1} about {topic}?",
+            "options": ["A", "B", "C", "D"],
+            "correct_answer": "A",
+        }
+        for index in range(num_questions)
+    ]
+
+    return "test-session-id", questions
+
+
+def setup_function():
+    app_module.generate_quiz_questions = fake_generate_quiz_questions
 
 
 def test_generate_quiz():
