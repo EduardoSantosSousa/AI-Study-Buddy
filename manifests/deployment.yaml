@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: ai-study-buddy
-          image: eduardosousa1493/ai-study-buddy:IMAGE_TAG
+          image: eduardosousa1493/ai-study-buddy:v4
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
