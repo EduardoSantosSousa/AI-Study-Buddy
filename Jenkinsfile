@@ -70,6 +70,15 @@ pipeline {
             }
         }
 
+        stage('Sync Git Branch') {
+            steps {
+                sh '''
+                    git fetch origin ${GIT_BRANCH}
+                    git checkout -B ${GIT_BRANCH} origin/${GIT_BRANCH}
+                '''
+            }
+        }
+
         stage('Update Kubernetes Image Tag') {
             steps {
                 sh '''
