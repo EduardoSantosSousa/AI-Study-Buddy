@@ -133,10 +133,14 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
                     sh '''
+                        set -e
+
                         KUBECONFIG_FILE="$(mktemp)"
-                        printf '%s' "$KUBECONFIG_CONTENT" > "$KUBECONFIG_FILE"
+                        printf '%b' "$KUBECONFIG_CONTENT" > "$KUBECONFIG_FILE"
                         chmod 600 "$KUBECONFIG_FILE"
                         export KUBECONFIG="$KUBECONFIG_FILE"
+
+                        kubectl config view --minify >/dev/null
 
                         ARGOCD_PASSWORD=$(kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
 
