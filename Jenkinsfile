@@ -142,9 +142,20 @@ pipeline {
                         chmod 600 "$KUBECONFIG_FILE"
                         export KUBECONFIG="$KUBECONFIG_FILE"
 
+                        if grep -Eq 'client-certificate:|client-key:|certificate-authority:' "$KUBECONFIG_FILE"; then
+                            echo "The kubeconfig credential still references certificate files from another machine."
+                            echo "Generate it with: kubectl config view --raw --flatten --minify | base64 -w 0"
+                            exit 1
+                        fi
+
                         CURRENT_CONTEXT="$(kubectl config current-context 2>/dev/null || true)"
                         if [ -z "$CURRENT_CONTEXT" ]; then
                             CURRENT_CONTEXT="$(kubectl config get-contexts -o name | head -n 1)"
+                            if [ -z "$CURRENT_CONTEXT" ]; then
+                                echo "No Kubernetes contexts found in the kubeconfig credential."
+                                echo "Update the Jenkins 'kubeconfig' credential with a full kubeconfig file."
+                                exit 1
+                            fi
                             kubectl config use-context "$CURRENT_CONTEXT"
                         fi
 
