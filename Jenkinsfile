@@ -142,6 +142,12 @@ pipeline {
                         chmod 600 "$KUBECONFIG_FILE"
                         export KUBECONFIG="$KUBECONFIG_FILE"
 
+                        CURRENT_CONTEXT="$(kubectl config current-context 2>/dev/null || true)"
+                        if [ -z "$CURRENT_CONTEXT" ]; then
+                            CURRENT_CONTEXT="$(kubectl config get-contexts -o name | head -n 1)"
+                            kubectl config use-context "$CURRENT_CONTEXT"
+                        fi
+
                         kubectl config view --minify >/dev/null
 
                         ARGOCD_PASSWORD=$(kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
