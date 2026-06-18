@@ -15,7 +15,10 @@ pipeline {
             steps {
                 checkout scmGit(
                     branches: [[name: "*/${GIT_BRANCH}"]],
-                    extensions: [],
+                    extensions: [[
+                        $class: 'LocalBranch',
+                        localBranch: "${GIT_BRANCH}"
+                    ]],
                     userRemoteConfigs: [[
                         credentialsId: 'github-token',
                         url: "${GIT_REPO_URL}"
@@ -128,9 +131,12 @@ pipeline {
 
         stage('Sync ArgoCD') {
             steps {
-                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_FILE')]) {
+                withCredentials([string(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
                     sh '''
-                        export KUBECONFIG=$KUBECONFIG_FILE
+                        KUBECONFIG_FILE="$(mktemp)"
+                        printf '%s' "$KUBECONFIG_CONTENT" > "$KUBECONFIG_FILE"
+                        chmod 600 "$KUBECONFIG_FILE"
+                        export KUBECONFIG="$KUBECONFIG_FILE"
 
                         ARGOCD_PASSWORD=$(kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
 
@@ -140,6 +146,8 @@ pipeline {
                             --insecure
 
                         argocd app sync ${ARGOCD_APP}
+
+                        rm -f "$KUBECONFIG_FILE"
                     '''
                 }
             }
