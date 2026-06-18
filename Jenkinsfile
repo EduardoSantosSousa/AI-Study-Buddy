@@ -131,12 +131,14 @@ pipeline {
 
         stage('Sync ArgoCD') {
             steps {
-                withCredentials([string(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
+                withCredentials([string(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_BASE64')]) {
                     sh '''
                         set -e
 
                         KUBECONFIG_FILE="$(mktemp)"
-                        printf '%b' "$KUBECONFIG_CONTENT" > "$KUBECONFIG_FILE"
+                        trap 'rm -f "$KUBECONFIG_FILE"' EXIT
+
+                        printf '%s' "$KUBECONFIG_BASE64" | base64 -d > "$KUBECONFIG_FILE"
                         chmod 600 "$KUBECONFIG_FILE"
                         export KUBECONFIG="$KUBECONFIG_FILE"
 
@@ -150,8 +152,6 @@ pipeline {
                             --insecure
 
                         argocd app sync ${ARGOCD_APP}
-
-                        rm -f "$KUBECONFIG_FILE"
                     '''
                 }
             }
